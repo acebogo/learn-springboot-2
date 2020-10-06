@@ -1,4 +1,4 @@
-package com.acebogo.boot01;
+package com.acebogo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

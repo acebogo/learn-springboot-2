@@ -1,4 +1,4 @@
-package com.acebogo.boot01;
+package com.acebogo;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

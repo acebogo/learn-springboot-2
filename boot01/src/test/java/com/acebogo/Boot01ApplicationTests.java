@@ -1,4 +1,4 @@
-package com.acebogo.boot01;
+package com.acebogo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
