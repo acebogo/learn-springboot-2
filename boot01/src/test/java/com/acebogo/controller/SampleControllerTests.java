@@ -1,24 +1,57 @@
 package com.acebogo.controller;
 
 
+
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@WebMvcTest(SampleController.class)
 public class SampleControllerTests {
 
     /**
-     * 컨트롤러 테스트 하기 위해서는 다음과 같은 상황을 주의해서 작성해야한다.
-     *
-     * 1. 테스트 클래스에 @WebMvcTest 어노테이션을 추가해서 특정 컨트롤러를 지정
-     * @WebMVcTest어노테이션을 사용하면 @Controller, @Component, @ControllerAdvice등이
-     * 작성된 코드를 인식할 수 있다.
-     *
-     * 2. 컨트롤러를 테스트하려면 org.springframework.test.web.servlet.MockMvc타입의
-     * 객체를 사용해야만 한다.
-     * @WebMvcTest와 같이 사용하면 별도의 생성 없이 주입(@Autowired)만으로
-     * 코드를 작성할 수 있기 때문에 편리하다.
+     * Controller 테스트할때 @SpringBootTest는 사용하지 않는다.
+     * @Test어노테이션이 선언된 메소드를 실행하거나 클래스 JUnit으로 실행하면
+     * 자동으로 스프링 부트가 시작되고 해당 테스트가 진행되는 것을 볼 수 있다.
      */
+
+    @Autowired
+    MockMvc mock;
+
+    @Test
+    public void testHello1() throws Exception {
+
+        /**
+         * MockMvc객체의 경우 perform()을 이용해 객체를 브라우저에서 서버의 URL을 호출하듯이
+         * 테스트를 진행할 수 있다.
+         * 결과는 andExpect()를 이용해 확인이 가능하다.
+         * 결과 확인외에도 Response에 대한 정보를 체크하는 용도로 사용할 수 있다.
+         */
+        mock.perform(get("/hello"))
+                .andExpect(content().string("Hello World"));
+    }
+
+    @Test
+    public void testHello2() throws Exception {
+
+        /**
+         * [예시]
+         * 정상적인 응답상태 = isOk()
+         * 응답으로 전송되는 결과를 보고 싶다면 andReturn으로 값을 넘겨받을 수 있다.
+         */
+        MvcResult result = mock.perform(get("/hello"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello World")).andReturn();
+
+        System.out.println(result.getResponse().getContentAsString());
+    }
+
 }
