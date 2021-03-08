@@ -1,0 +1,9 @@
+rootProject.name = 'spring-bottom-doma2-sample'
+// https://github.com/miyabayt/spring-boot-doma2-sample
+include 'sample-common'
+include 'sample-domain'
+include 'sample-web-base'
+include 'sample-web-front'
+include 'sample-web-admin'
+include 'sample-batch'
+
